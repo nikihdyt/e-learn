@@ -1,5 +1,6 @@
 ﻿using ELearnAPI.EfCore;
 using ELearnAPI.Model;
+using ELearnAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,10 +11,10 @@ namespace ELearnAPI.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly DbHelper _db;
+        private readonly CourseService _db;
         public CourseController(EF_DataContext eF_DataContext)
         {
-            _db = new DbHelper(eF_DataContext);
+            _db = new CourseService(eF_DataContext);
         }
 
         // GET: api/<CourseController>
@@ -55,7 +56,7 @@ namespace ELearnAPI.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(ResponseHandler.GetExceptionResponse(e));
+                return BadRequest(ResponseHandler.GetResponseBadRequest(e));
             }
         }
 

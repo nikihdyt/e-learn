@@ -1,14 +1,15 @@
-﻿using ELearnAPI.EfCore;
+using ELearnAPI.EfCore;
+using ELearnAPI.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace ELearnAPI.Model
+namespace ELearnAPI.Services
 {
-    public class DbHelper
+    public class CourseService
     {
         private EF_DataContext _context;
-        public DbHelper(EF_DataContext context) 
-        {  
-            _context = context; 
+        public CourseService(EF_DataContext context)
+        {
+            _context = context;
         }
         public List<CourseModel> GetCourses()
         {
@@ -28,13 +29,20 @@ namespace ELearnAPI.Model
         {
             CourseModel responseData = new CourseModel();
             var course = _context.Courses.Where(d => d.Id.Equals(id)).FirstOrDefault();
-            return new CourseModel()
+            try
             {
-                Id = course.Id,
-                Title = course.Title,
-                Description = course.Description,
-                Prerequisites = course.Prerequisites,
-            };
+                return new CourseModel()
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    Prerequisites = course.Prerequisites,
+                };
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void UpsertCourse(Course course)

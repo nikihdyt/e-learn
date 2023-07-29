@@ -8,7 +8,14 @@ namespace ELearnAPI.Model
         {
             Response response = new Response();
             response.Code = "500";
-            response.Data = e.Message;
+            response.Message = e.Message;
+            return response;
+        }
+        public static Response GetResponseBadRequest(Exception e)
+        {
+            Response response = new Response();
+            response.Code = "404";
+            response.Message = "Bad Request";
             return response;
         }
         public static Response GetResponseOk(ResponseType type, object? contract) 
