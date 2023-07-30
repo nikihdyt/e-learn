@@ -47,3 +47,11 @@ C:\Dev\dotnet\ELearnAPI\ELearnAPI\obj\Debug\net6.0\refint\ELearnAPI.dll
 C:\Dev\dotnet\ELearnAPI\ELearnAPI\obj\Debug\net6.0\ELearnAPI.pdb
 C:\Dev\dotnet\ELearnAPI\ELearnAPI\obj\Debug\net6.0\ELearnAPI.genruntimeconfig.cache
 C:\Dev\dotnet\ELearnAPI\ELearnAPI\obj\Debug\net6.0\ref\ELearnAPI.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\DotNetEnv.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\Sprache.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Dev\dotnet\ELearnAPI\ELearnAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

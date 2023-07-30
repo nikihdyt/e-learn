@@ -8,5 +8,6 @@ namespace ELearnAPI.EfCore
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseMaterial> CoursesMaterial { get; set;}
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
