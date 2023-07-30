@@ -1,31 +1,30 @@
 ﻿using ELearnAPI.EfCore;
 using ELearnAPI.Model;
 using ELearnAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ELearnAPI.Controllers
 {
-    
+    // [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseMaterialController : ControllerBase
     {
-        private readonly CourseService _db;
-        public CourseController(EF_DataContext eF_DataContext)
+        private readonly CourseMaterialService _db;
+        public CourseMaterialController(EF_DataContext eF_DataContext)
         {
-            _db = new CourseService(eF_DataContext);
+            _db = new CourseMaterialService(eF_DataContext);
         }
 
-        // GET: api/<CourseController>
-        [Route("api/courses")]
+        // Get materials by course id
         [HttpGet]
-        public IActionResult Get()
+        [Route("api/materials/{courseId}")]
+        public IActionResult GetMaterials(int courseId)
         {
             ResponseType responseType = ResponseType.Success;
             try
             {
-                IEnumerable<CourseModel> data = _db.GetCourses();
+                IEnumerable<CourseMaterialModel> data = _db.GetMaterialByCourseId(courseId);
                 if (!data.Any())
                 {
                     responseType = ResponseType.Success;
@@ -34,19 +33,19 @@ namespace ELearnAPI.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(ResponseHandler.GetExceptionResponse(e));
+                return BadRequest(ResponseHandler.GetResponseBadRequest(e));
             }
         }
 
-        // GET api/<CourseController>/5
-        [HttpGet("{id}")]
-        [Route("api/course/{id}")]
-        public IActionResult Get(int id)
+        // get material by id
+        [HttpGet]
+        [Route("api/material/{id}")]
+        public IActionResult GetMaterial(int id)
         {
             ResponseType responseType = ResponseType.Success;
             try
             {
-                CourseModel data = _db.GetCourseById(id);
+                CourseMaterial data = _db.GetMaterialById(id);
                 if (data == null)
                 {
                     responseType = ResponseType.NotFound;
@@ -59,16 +58,16 @@ namespace ELearnAPI.Controllers
             }
         }
 
-        // POST api/<CourseController>
-        [Route("api/course")]
+        // create a material in a specific course
+        [Route("api/course_material")]
         [HttpPost]
-        public IActionResult Post([FromBody] Course courseData)
+        public IActionResult Post([FromBody] CourseMaterial courseMaterialData)
         {
             try
             {
                 ResponseType responseType = ResponseType.Success;
-                _db.UpsertCourse(courseData);
-                return Ok(ResponseHandler.GetResponseOk(responseType, courseData));
+                _db.CreateCourseMaterial(courseMaterialData);
+                return Ok(ResponseHandler.GetResponseOk(responseType, courseMaterialData));
             }
             catch (Exception e)
             {
@@ -76,16 +75,16 @@ namespace ELearnAPI.Controllers
             }
         }
 
-        // PUT api/<CourseController>/5
-        [Route("api/course/update/{id}")]
+        // update material in a specific course
+        [Route("api/material/{id}")]
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Course courseData)
+        public IActionResult Put(int id, [FromBody] CourseMaterial materialData)
         {
             try
             {
                 ResponseType responseType = ResponseType.Success;
-                _db.UpsertCourse(courseData);
-                return Ok(ResponseHandler.GetResponseOk(responseType, courseData));
+                CourseMaterial updatedMaterial = _db.UpdateMaterial(id, materialData);
+                return Ok(ResponseHandler.GetResponseOk(responseType, updatedMaterial));
             }
             catch (Exception e)
             {
@@ -93,15 +92,15 @@ namespace ELearnAPI.Controllers
             }
         }
 
-        // DELETE api/<CourseController>/5
-        [Route("api/course/{id}")]
+        // delete material in a specific course
+        [Route("api/material/{id}")]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
             {
                 ResponseType responseType = ResponseType.Success;
-                _db.DeleteCourse(id);
+                _db.DeleteMaterial(id);
                 return Ok(ResponseHandler.GetResponseOk(responseType, null));
             }
             catch (Exception e)
@@ -109,5 +108,6 @@ namespace ELearnAPI.Controllers
                 return BadRequest(ResponseHandler.GetExceptionResponse(e));
             }
         }
+
     }
 }
